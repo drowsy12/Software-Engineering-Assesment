@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter as tk
 root = Tk()
 root.title("Interactive Physics Quiz") #title
 root.geometry("1200x800") #This is what defines the length and width of the application
@@ -12,7 +13,7 @@ def switch_page(page_function): #Actts as variable for fage_function to do the w
         current_frame.destroy() # Collapses the page 
 
     current_frame = tk.Frame(root) 
-    current_frame.pack(fill="both", expand =True) #allows the fu
+    current_frame.pack(fill="both", expand =True) #allows the function to display the frame
     page_function(current_frame)
 
 def load_home(frame):
