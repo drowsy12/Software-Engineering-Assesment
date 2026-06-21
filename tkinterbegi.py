@@ -30,6 +30,13 @@ def load_home(frame):
     btn.place(x=100, y=50)
 
 def load_learning(frame):
+
+    bg_image= tk.PhotoImage(file="/Users/mohammed/School/11SENG26/Software Engineering Assesment2/Software Engineering Assesment/Physicsr.png")
+    bg_label = tk.Label(frame, image=bg_image)
+    bg_label.image = bg_image  # Keep a reference to the image
+    bg_label.place(relwidth=1, relheight=1)
+
+
     label = tk.Label(frame, text="Learn For Your quiz", font=("Arial", 14))
     label.place(y=200, x=200)
     btn = tk.Button(frame, text="Go to Home", command=lambda: switch_page(load_home))
@@ -40,6 +47,13 @@ def load_learning(frame):
     btn.place(x=200, y=150)
 
 def load_info1(frame):
+
+
+    bg_image= tk.PhotoImage(file="/Users/mohammed/School/11SENG26/Software Engineering Assesment2/Software Engineering Assesment/Physicsr.png")
+    bg_label = tk.Label(frame, image=bg_image)
+    bg_label.image = bg_image  # Keep a reference to the image
+    bg_label.place(relwidth=1, relheight=1)
+
     label = tk.Label(frame, text="Learning", font=("Arial", 14))
     label.place(y=200, x=200)
     btn = tk.Button(frame, text="Go Back to Home", command=lambda: switch_page(load_home))
