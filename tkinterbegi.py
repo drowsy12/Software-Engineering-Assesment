@@ -5,7 +5,7 @@ root.title("Interactive Physics Quiz") #title
 root.geometry("600x800") #This is what defines the length and width of the application
 root.resizable(False, False)
 
-current_frame = None #starts of with the current frame being set as none (Used)
+current_frame = None #starts of with the current frame being set as none
 
 def switch_page(page_function): #Actts as variable for fage_function to do the work.
     global current_frame #allows us to change the variable to be present for all other parts of the code
@@ -17,10 +17,10 @@ def switch_page(page_function): #Actts as variable for fage_function to do the w
     page_function(current_frame)
 
 def load_home(frame):
-    bg_image= tk.PhotoImage(file="/Users/mohammed/School/11SENG26/Software Engineering Assesment2/Software Engineering Assesment/Physics.png")
+    bg_image= tk.PhotoImage(file="/Users/mohammed/School/11SENG26/Software Engineering Assesment2/Software Engineering Assesment/Physicsr.png")
     bg_label = tk.Label(frame, image=bg_image)
     bg_label.image = bg_image  # Keep a reference to the image
-    bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+    bg_label.place(relwidth=1, relheight=1)
 
     title = tk.Label(frame, text="Home Page", font=("Arial", 24, "bold"))
     title.place(x=150, y=50)
