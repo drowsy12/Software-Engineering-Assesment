@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import font 
 
 root = Tk()
 root.title("Interactive Physics Quiz") #title
@@ -8,7 +9,8 @@ root.resizable(False, False)
 
 #Defining the fonts and using the corrcr font
 title_font = ("Chalkboard", 60, "bold" )
-subtitle_font =("Chalkboard", 16, "bold")
+subtitle_font =("Chalkboard", 16,)
+button_font_font =("Chalkboard", 16, "bold")
 button_font = ("Chalkboard", 20 )
 
 current_frame = None #starts of with the current frame being set as none
@@ -30,7 +32,7 @@ def load_home(frame):
 
     title = tk.Label(root, text="Physics Quiz", font=title_font, bg="#DBCBCB")
     title.place(x=100, y=170)
-    btn = tk.Button(frame, font=subtitle_font, text="Go to \n Learning", width=5, height=3, fg="#DBCBCB", command=lambda: switch_page(load_learning))
+    btn = tk.Button(frame, font=button_font, text="Go to \n Learning", width=5, height=3, fg="#DBCBCB", command=lambda: switch_page(load_learning))
 
     btn.place(x=400, y=300)
 
