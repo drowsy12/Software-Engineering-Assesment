@@ -31,10 +31,20 @@ def correct():
     score += 1
     if score_label:
         score_label.config(text="Score: " + str(score)+ "/ 10")  # Update the score label
+
+    label = tk.Label(root, text="Correct answer!", font=(subtitle_font), bg="#DBCBCB", fg="black")
+    label.place(x=200, y=700)
+    option1.config(state=DISABLED)
+    option2.config(state=DISABLED)
+    option3.config(state=DISABLED)
+    option4.config(state=DISABLED)
     
 def wrong():
     global score
     score += 0
+    label = tk.Label(root, text="Incorrect answer. Try again!", font=(subtitle_font), bg="#DBCBCB", fg="black")
+    label.place(x=150, y=750)
+
 
 
 def background_image(frame): #This function is used to set the background image for the application
@@ -95,12 +105,17 @@ def load_question1(frame):#This is the function for loading the question 1 page
     
     option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
     option1.place(x=100, y=300)
+    option1.config(state=DISABLED) 
     option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=correct)
     option2.place(x=100, y=400) 
     option3 = tk.Button(frame, text="C. J", font=(button_font), width=10, height=3, fg="black", command=wrong)
     option3.place(x=350, y=300) 
     option4 = tk.Button(frame, text="D. Km/h", font=(button_font), width=10, height=3, fg="black", command=wrong)
     option4.place(x=350, y=400)
+
+
+
+  
 
     score_display(frame)
 
@@ -301,48 +316,48 @@ def load_question9(frame):#This is the function for loading the question 9 page
 
     background_image(frame)
 
-    label = tk.Label(frame, text="Question 9: \nWhat is the SI unit of power?", font=(subtitle_font), bg="#DBCBCB", fg="black" )
-    label.place(y=200, x=100)
+    label = tk.Label(frame, text="Question 9: \nIf A bicycle travels a distance of 15m in 3s \nWhat is its speed?", font=(subtitle_font), bg="#DBCBCB", fg="black" )
+    label.place(y=160, x=40)
 
     
-    option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. 5 m/s", font=(button_font), width=10, height=3, fg="black", command=correct)
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option2 = tk.Button(frame, text="B. 9 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. J", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. 4 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. Km/h", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. 2 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
     option4.place(x=350, y=400)
 
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 10", width=10, height=3, fg="black", command=lambda: switch_page(load_question10))
-    btn.place(x=400, y=650)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question8))
-    btn.place(x=100, y=650)
+    btn.place(x=400, y=550)
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
+    btn.place(x=100, y=550)
 
 def load_question10(frame):#This is the function for loading the question 10 page
     background_image(frame)
 
-    label = tk.Label(frame, text="Question 10: \nWhat is the SI unit of velocity?", font=(subtitle_font), bg="#DBCBCB", fg="black" )
-    label.place(y=200, x=100)
+    label = tk.Label(frame, text="Question 10:\n What is the main difference between\n speed and velocity?", font=(subtitle_font), bg="#DBCBCB", fg="black" )
+    label.place(y=160, x=85)
 
 
     
-    option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
-    option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=correct)
-    option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. J", font=(button_font), width=10, height=3, fg="black", command=wrong)
-    option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. Km/h", font=(button_font), width=10, height=3, fg="black", command=wrong)
-    option4.place(x=350, y=400)
+    option1 = tk.Button(frame, text="A. Speed includes a direction,\n but velocity does not.", font=(button_font), width=20, height=3, fg="black", command=wrong)
+    option1.place(x=40, y=300)
+    option2 = tk.Button(frame, text="B. Velocity and speed both include\n direction and magnitude.", font=(button_font), width=20, height=3, fg="black", command=wrong)
+    option2.place(x=40, y=400) 
+    option3 = tk.Button(frame, text="C. They mean the\n exact same thing", font=(button_font), width=20, height=3, fg="black", command=wrong)
+    option3.place(x=320, y=300) 
+    option4 = tk.Button(frame, text="D.Velocity includes a direction,\n but speed does not.", font=(button_font), width=20, height=3, fg="black", command=correct)
+    option4.place(x=320, y=400)
 
     score_display(frame)
 
-    btn = tk.Button(frame, font=button_font, text="Go to question 2", width=10, height=3, fg="black", command=lambda: switch_page(load_results))
+    btn = tk.Button(frame, font=button_font, text="Go to Results", width=10, height=3, fg="black", command=lambda: switch_page(load_results))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_quiz))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 def load_results(frame):#This is the function for loading the results page
