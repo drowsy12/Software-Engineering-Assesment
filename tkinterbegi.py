@@ -18,32 +18,36 @@ long_question_font = ("Chalkboard", 23, "bold")
 
 
 
-def reset_score():
+def reset_score(): #This function is used to reset the score of the user
     global score, score_label
     score = 0
     if score_label:
         score_label.config(text="Score: " + str(score) + "/ 10")  # Update the score label
 
+def disable_buttons(buttons): #This function is used to disable the buttons after the user selects an answer
+    for button in buttons:
+        button.config(state="disabled")
 
 
-def correct():
+def correct(buttons): #This function is used to display the message correct answer and add to the score.
     global score, score_label
     score += 1
     if score_label:
-        score_label.config(text="Score: " + str(score)+ "/ 10")  # Update the score label
+        score_label.config(text="Score: " + str(score)+ "/ 10")  # Update the score label\
+    label = tk.Label(root, text="Correct answer!", font=(subtitle_font), bg="#DBCBCB", fg="black")
+    label.place(x=200, y=700)
+    disable_buttons(buttons)
+
 
     label = tk.Label(root, text="Correct answer!", font=(subtitle_font), bg="#DBCBCB", fg="black")
     label.place(x=200, y=700)
-    option1.config(state=DISABLED)
-    option2.config(state=DISABLED)
-    option3.config(state=DISABLED)
-    option4.config(state=DISABLED)
-    
-def wrong():
-    global score
+
+def wrong(buttons): #This function is used to display the message wrong answer.
+    global score, score_label
     score += 0
     label = tk.Label(root, text="Incorrect answer. Try again!", font=(subtitle_font), bg="#DBCBCB", fg="black")
     label.place(x=150, y=750)
+    disable_buttons(buttons)
 
 
 
@@ -103,16 +107,15 @@ def load_question1(frame):#This is the function for loading the question 1 page
 
     answer = tk.StringVar() #This is the variable that will be used to store the answer of the user(Found from youtube video in reference link during the report)
     
-    option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option1.place(x=100, y=300)
-    option1.config(state=DISABLED) 
-    option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. J", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. J", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. Km/h", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. Km/h", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=400)
-
+    buttons = [option1, option2, option3, option4]
 
 
   
@@ -121,7 +124,7 @@ def load_question1(frame):#This is the function for loading the question 1 page
 
     btn = tk.Button(frame, font=button_font, text="Go to question 2", width=10, height=3, fg="black", command=lambda: switch_page(load_question2))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_quiz))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 def load_question2(frame):#This is the function for loading the question 2 page
@@ -132,22 +135,22 @@ def load_question2(frame):#This is the function for loading the question 2 page
     label = tk.Label(frame, text="Question 2: \nWhat is the SI unit of acceleration?", font=(subtitle_font), bg="#DBCBCB", fg="black" )
     label.place(y=200, x=100)
 
-    answer = tk.StringVar() #This is the variable that will be used to store the answer of the user(Found from youtube video in reference link during the report)
+ 
     
-    option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option1 = tk.Button(frame, text="A. m/s^2", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. Watts", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. Watts", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. Km/h^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. Km/h^2", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=400)
-
+    buttons = [option1, option2, option3, option4]
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 3", width=10, height=3, fg="black", command=lambda: switch_page(load_question3))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question1))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 def load_question3(frame):#This is the function for loading the question 3 page
@@ -158,20 +161,21 @@ def load_question3(frame):#This is the function for loading the question 3 page
     label = tk.Label(frame, text="Question 3: \nAn object starts from rest and accelerates uniformly \nat 3.0 m/s² along a straight line. \nWhat is its displacement after 4.0 seconds?", font=(long_question_font), bg="#DBCBCB", fg="black" )
     label.place(y=100, x=0)
 
-    option1 = tk.Button(frame, text="A. 6.0 m", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. 6.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. 48.0 m", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. 48.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. 12.0 m", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. 12.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. 24.0 m", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option4 = tk.Button(frame, text="D. 24.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option4.place(x=350, y=400)
+    buttons = [option1, option2, option3, option4]
 
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 4", width=10, height=3, fg="black", command=lambda: switch_page(load_question4))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question2))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 def load_question4(frame):#This is the function for loading the question 4 page
@@ -183,20 +187,21 @@ def load_question4(frame):#This is the function for loading the question 4 page
     label.place(y=200, x=20)
 
     
-    option1 = tk.Button(frame, text="A. Speed", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option1 = tk.Button(frame, text="A. Speed", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. Acceleration", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. Acceleration", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. Velocity", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. Velocity", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. Displacement", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. Displacement", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=400)
+    buttons = [option1, option2, option3, option4]
 
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 5", width=10, height=3, fg="black", command=lambda: switch_page(load_question5))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question3))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 
@@ -212,20 +217,21 @@ def load_question5(frame):#This is the function for loading the question 5 page
     vtgraph_label.place(x=50, y=150)
 
     
-    option1 = tk.Button(frame, text="A. Acceleration", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. Acceleration", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option1.place(x=100, y=450)
-    option2 = tk.Button(frame, text="B. Displacement", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option2 = tk.Button(frame, text="B. Displacement", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option2.place(x=100, y=550) 
-    option3 = tk.Button(frame, text="C. Jerk", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. Jerk", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=450) 
-    option4 = tk.Button(frame, text="D. Velocity", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. Velocity", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=550)
+    buttons = [option1, option2, option3, option4]
 
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 6", width=10, height=3, fg="black", command=lambda: switch_page(load_question6))
     btn.place(x=400, y=650)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question4))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=650)
 
 def load_question6(frame):#This is the function for loading the question 6 page
@@ -238,20 +244,20 @@ def load_question6(frame):#This is the function for loading the question 6 page
 
 
 
-    option1 = tk.Button(frame, text="A. 3.4 m", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. 3.4 m", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. 12.0 m", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. 12.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. 5.0 m", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option3 = tk.Button(frame, text="C. 5.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. 7.0 m", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. 7.0 m", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=400)
-
+    buttons = [option1, option2, option3, option4]
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 7", width=10, height=3, fg="black", command=lambda: switch_page(load_question7))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question5))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 def load_question7(frame):#This is the function for loading the question 7 page
@@ -263,20 +269,20 @@ def load_question7(frame):#This is the function for loading the question 7 page
     label.place(y=180, x=20)
 
     
-    option1 = tk.Button(frame, text="A. 9.8 m/s^2", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option1 = tk.Button(frame, text="A. 9.8 m/s^2", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. 9.8 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. 9.8 m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. 0 m/s^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. 0 m/s^2", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. 19.8 m/s^2", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. 19.8 m/s^2", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=400)
-
+    buttons = [option1, option2, option3, option4]
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 8", width=10, height=3, fg="black", command=lambda: switch_page(load_question8))
     btn.place(x=400, y=550)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_question6))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=550)
 
 def load_question8(frame):#This is the function for loading the question 8 page
@@ -295,20 +301,21 @@ def load_question8(frame):#This is the function for loading the question 8 page
     vgtwo_label.place(x=65, y=170)
 
  
-    option1 = tk.Button(frame, text="A. 0 to 2 seconds", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. 0 to 2 seconds", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option1.place(x=100, y=450)
-    option2 = tk.Button(frame, text="B. 6 to 8 seconds", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. 6 to 8 seconds", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=550) 
-    option3 = tk.Button(frame, text="C. 4 to 6 seconds", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. 4 to 6 seconds", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=450) 
-    option4 = tk.Button(frame, text="D. 2 to 4 seconds", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option4 = tk.Button(frame, text="D. 2 to 4 seconds", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option4.place(x=350, y=550)
+    buttons = [option1, option2, option3, option4]
 
     score_display(frame)
 
     btn = tk.Button(frame, font=button_font, text="Go to question 9", width=10, height=3, fg="black", command=lambda: switch_page(load_question9))
     btn.place(x=400, y=650)
-    btn = tk.Button(frame, font=button_font, text="Back", width=10, height=3, fg="black", command=lambda: switch_page(load_quiz))
+    btn = tk.Button(frame, font=button_font, text="Home", width=10, height=3, fg="black", command=lambda: switch_page(load_home))
     btn.place(x=100, y=650)
     
 def load_question9(frame):#This is the function for loading the question 9 page
@@ -320,14 +327,15 @@ def load_question9(frame):#This is the function for loading the question 9 page
     label.place(y=160, x=40)
 
     
-    option1 = tk.Button(frame, text="A. 5 m/s", font=(button_font), width=10, height=3, fg="black", command=correct)
+    option1 = tk.Button(frame, text="A. 5 m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: correct(buttons))
     option1.place(x=100, y=300)
-    option2 = tk.Button(frame, text="B. 9 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. 9 m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=100, y=400) 
-    option3 = tk.Button(frame, text="C. 4 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. 4 m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=350, y=300) 
-    option4 = tk.Button(frame, text="D. 2 m/s", font=(button_font), width=10, height=3, fg="black", command=wrong)
+    option4 = tk.Button(frame, text="D. 2 m/s", font=(button_font), width=10, height=3, fg="black", command=lambda: wrong(buttons))
     option4.place(x=350, y=400)
+    buttons = [option1, option2, option3, option4]
 
     score_display(frame)
 
@@ -344,14 +352,15 @@ def load_question10(frame):#This is the function for loading the question 10 pag
 
 
     
-    option1 = tk.Button(frame, text="A. Speed includes a direction,\n but velocity does not.", font=(button_font), width=20, height=3, fg="black", command=wrong)
+    option1 = tk.Button(frame, text="A. Speed includes a direction,\n but velocity does not.", font=(button_font), width=20, height=3, fg="black", command=lambda: wrong(buttons))
     option1.place(x=40, y=300)
-    option2 = tk.Button(frame, text="B. Velocity and speed both include\n direction and magnitude.", font=(button_font), width=20, height=3, fg="black", command=wrong)
+    option2 = tk.Button(frame, text="B. Velocity and speed both include\n direction and magnitude.", font=(button_font), width=20, height=3, fg="black", command=lambda: wrong(buttons))
     option2.place(x=40, y=400) 
-    option3 = tk.Button(frame, text="C. They mean the\n exact same thing", font=(button_font), width=20, height=3, fg="black", command=wrong)
+    option3 = tk.Button(frame, text="C. They mean the\n exact same thing", font=(button_font), width=20, height=3, fg="black", command=lambda: wrong(buttons))
     option3.place(x=320, y=300) 
-    option4 = tk.Button(frame, text="D.Velocity includes a direction,\n but speed does not.", font=(button_font), width=20, height=3, fg="black", command=correct)
+    option4 = tk.Button(frame, text="D.Velocity includes a direction,\n but speed does not.", font=(button_font), width=20, height=3, fg="black", command=lambda: correct(buttons))
     option4.place(x=320, y=400)
+    buttons = [option1, option2, option3, option4]
 
     score_display(frame)
 
